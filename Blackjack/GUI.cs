@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Blackjack
+{
+    internal class GUI
+    {
+        public void DisplayRules()
+        {
+            Console.WriteLine("Rules:\n" +
+                "Try to get as close to 21 without going over.\n" +
+                "Kings, Queens and Jacks are worth 10 points.\n" +
+                "Aces are worth 1 or 11 points.\n" +
+                "Cards 2 to 10 are worth their face value.\n" +
+                "(H)it to take another card.\n" +
+                "(S)tand to stop taking cards.\n" +
+                "On your first play, you can (D)ouble down to increase your bet\n" +
+                "but you must hit exactly one more time before standing.\n" +
+                "In case of a tie, the bet is returned to you.\n" +
+                "The dealer stops hitting at 17.");
+        }
+        public void StartingScreen()
+        {
+            Console.WriteLine("Welcome to Blackjack!");
+
+            DisplayRules();
+
+            Console.WriteLine();
+
+            Console.WriteLine("To start the gambling press any key and have fun!");
+
+            Console.ReadKey();
+        }
+    }
+}

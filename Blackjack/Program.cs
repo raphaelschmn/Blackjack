@@ -12,6 +12,14 @@ namespace Blackjack
         {
             //Output Encoding für Unicode Symbole
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            GUI gui = new GUI();
+            gui.StartingScreen();
+            
+            do //Gameloop
+            {
+
+            } while (true);
         }
     }
 }
