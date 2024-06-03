@@ -10,6 +10,8 @@ namespace Blackjack
     {
         static void Main(string[] args)
         {
+            //Output Encoding für Unicode Symbole
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
         }
     }
 }
