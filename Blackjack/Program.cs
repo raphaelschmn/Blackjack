@@ -16,9 +16,9 @@ namespace Blackjack
             GUI gui = new GUI();
             gui.DisplayStartingScreen();
 
-            Card c1 = new Card(1, 10,"backside");
-            Card c2 = new Card(2, 12,"");
-            Card c3 = new Card(4, 10,"");
+            Card c1 = new Card(1, 10);
+            Card c2 = new Card(2, 12);
+            Card c3 = new Card(4, 10);
 
             Card[] cards = {c1, c2, c3 };
 

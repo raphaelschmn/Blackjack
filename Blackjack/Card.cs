@@ -14,7 +14,7 @@ namespace Blackjack
         public string Side;
         public string ValueShown;
 
-        public Card(int s, int v, string side)
+        public Card(int s, int v)
         {
             Value = v; // Sets the Value of the card to the value of v (The second argument)
             switch (s) // Case statement based on the value of s
@@ -32,7 +32,6 @@ namespace Blackjack
                     Suit = "♠";
                     break;
             }
-            Side = side;
             if (Value > 10) //For Jack, Queen and King
             {
                 Points = 10; 
