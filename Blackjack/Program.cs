@@ -22,11 +22,11 @@ namespace Blackjack
         static Card[] generateDeck()
         {
             Card[] deck = new Card[52];
-            int counter =0;
+            int counter = 0;
 
-            for (int suit = 1; suit < 5; suit ++)           //Loop trough all Suits
+            for (int suit = 1; suit < 5; suit++)           //Loop trough all Suits
             {
-                for (int value = 1; value < 14; value ++)   //Loop trough all Values
+                for (int value = 1; value < 14; value++)   //Loop trough all Values
                 {
                     deck[counter] = new Card(suit, value);  //Generate new Card 
                     counter++;
@@ -37,18 +37,23 @@ namespace Blackjack
         }
 
 
-        /*public static void Shuffle(this Card[] deck)      //In progress
+        public static Card[] Shuffle(Card[] deck)      //In progress
         {
             Random rng = new Random();
-            int num = 0;
+            Card temp;
+            int num = 0; 
             for (int i = 0; i < deck.Length ; i ++) 
             {
                 num = rng.Next(0, deck.Length);  
-                T value = deck[k];
-                deck[k] = deck[n];
-                deck[n] = value;
+                temp = deck[i];
+                deck[i] = deck[num];
+                deck[num] = temp;
+
+                
             }
+
+            return deck;
         }
-        */
+        
     }
 }
