@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Blackjack
 {
     internal class GUI
     {
+        public Card Card;
         public void DisplayRules()
         {
             Console.WriteLine("Rules:\n" +
@@ -23,7 +25,7 @@ namespace Blackjack
                 "In case of a tie, the bet is returned to you.\n" +
                 "The dealer stops hitting at 17.");
         }
-        public void StartingScreen()
+        public void DisplayStartingScreen()
         {
             Console.WriteLine("Welcome to Blackjack!");
 
@@ -34,6 +36,34 @@ namespace Blackjack
             Console.WriteLine("To start the gambling press any key and have fun!");
 
             Console.ReadKey();
+            Console.Clear();
+        }
+
+                public void DisplayCards(Card[] cards)
+        {
+            string[] rows = { "", "", "", "", "" };
+
+            for(int i = 0; i < cards.Length; i++)
+            {
+                if (cards[i].Side == "backside")
+                {
+                    rows[0] += " ___  ";
+                    rows[1] += "|## | ";
+                    rows[2] += "|###| ";
+                    rows[3] += "|_##| ";
+                } else
+                {
+                    rows[0] += " ___  ";
+                    rows[1] += string.Format("|{0, -2} | ", cards[i].ValueShown);
+                    rows[2] += string.Format("| {0, -1} | ", cards[i].Suit);
+                    rows[3] += string.Format("|_{0, 2}| ", cards[i].ValueShown);
+                }
+            }
+
+            foreach (string row in rows)
+            {
+                Console.WriteLine(row);
+            }
         }
     }
 }
