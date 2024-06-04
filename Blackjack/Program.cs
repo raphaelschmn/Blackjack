@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blackjack
 {
-    internal class Program
+    internal static class Program
     {
         static void Main(string[] args)
         {
@@ -32,5 +32,47 @@ namespace Blackjack
             } while (true);
             */
         }
+
+
+
+
+
+
+        static Card[] generateDeck()
+        {
+            Card[] deck = new Card[52];
+            int counter = 0;
+
+            for (int suit = 1; suit < 5; suit++)           //Loop trough all Suits
+            {
+                for (int value = 1; value < 14; value++)   //Loop trough all Values
+                {
+                    deck[counter] = new Card(suit, value);  //Generate new Card 
+                    counter++;
+                }
+            }
+
+            return deck;
+        }
+
+
+        public static Card[] Shuffle(Card[] deck)      //In progress
+        {
+            Random rng = new Random();
+            Card temp;
+            int num = 0; 
+            for (int i = 0; i < deck.Length ; i ++) 
+            {
+                num = rng.Next(0, deck.Length);  
+                temp = deck[i];
+                deck[i] = deck[num];
+                deck[num] = temp;
+
+                
+            }
+
+            return deck;
+        }
+        
     }
 }

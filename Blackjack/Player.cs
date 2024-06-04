@@ -15,7 +15,9 @@ namespace Blackjack
 
         public Player()
         {
-
+            hand = new Card[5];
+            points = 0;
+            cardsInHand = 0;
         }
 
     }
