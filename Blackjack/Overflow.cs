@@ -65,15 +65,6 @@ namespace Blackjack
 
         }
 
-        //static void Main(string[] args)
-        //{
-        //    onePlayer();
-
-        //    Console.ReadLine();
-
-        //}
-
-        // Generates the deck of 52 cards
         static PlayingCard[] generateDeck()
         {
             PlayingCard[] deck = new PlayingCard[52]; // Declares an array of PlayingCards with a size of 52

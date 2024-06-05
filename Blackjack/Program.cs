@@ -16,11 +16,8 @@ namespace Blackjack
             GUI gui = new GUI();
             gui.DisplayStartingScreen();
 
-            Card c1 = new Card(1, 10);
-            Card c2 = new Card(2, 12);
-            Card c3 = new Card(4, 10);
-
-            Card[] cards = {c1, c2, c3 };
+            Card[] cards = generateDeck();
+            Shuffle(cards);
 
             gui.DisplayCards(cards);
 
@@ -40,10 +37,10 @@ namespace Blackjack
 
         static Card[] generateDeck()
         {
-            Card[] deck = new Card[52];
+            Card[] deck = new Card[13];
             int counter = 0;
 
-            for (int suit = 1; suit < 5; suit++)           //Loop trough all Suits
+            for (int suit = 1; suit < 2; suit++)           //Loop trough all Suits
             {
                 for (int value = 1; value < 14; value++)   //Loop trough all Values
                 {

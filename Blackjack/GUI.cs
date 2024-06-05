@@ -45,19 +45,19 @@ namespace Blackjack
 
             for(int i = 0; i < cards.Length; i++)
             {
-                if (cards[i].Side == "backside")
-                {
-                    rows[0] += " ___  ";
-                    rows[1] += "|## | ";
-                    rows[2] += "|###| ";
-                    rows[3] += "|_##| ";
-                } else
-                {
+                //if (cards[i].Side == "backside")
+                //{
+                //    rows[0] += " ___  ";
+                //    rows[1] += "|## | ";
+                //    rows[2] += "|###| ";
+                //    rows[3] += "|_##| ";
+                //} else
+                //{
                     rows[0] += " ___  ";
                     rows[1] += string.Format("|{0, -2} | ", cards[i].ValueShown);
                     rows[2] += string.Format("| {0, -1} | ", cards[i].Suit);
                     rows[3] += string.Format("|_{0, 2}| ", cards[i].ValueShown);
-                }
+                //}
             }
 
             foreach (string row in rows)
