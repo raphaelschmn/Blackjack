@@ -11,9 +11,15 @@ namespace Blackjack
     internal class GUI
     {
         public Card Card;
+
+        public void GetPlayerInformation(Player p)
+        {
+            Console.Write("Please enter your name: ");
+            p.Name = Console.ReadLine();
+        }
         public void DisplayRules()
         {
-            Console.WriteLine("Rules:\n" +
+            Console.WriteLine("Here are the rules:\n" +
                 "Try to get as close to 21 without going over.\n" +
                 "Kings, Queens and Jacks are worth 10 points.\n" +
                 "Aces are worth 1 or 11 points.\n" +
@@ -25,9 +31,15 @@ namespace Blackjack
                 "In case of a tie, the bet is returned to you.\n" +
                 "The dealer stops hitting at 17.");
         }
-        public void DisplayStartingScreen()
+        public void DisplayStartingScreen(Player p)
         {
             Console.WriteLine("Welcome to Blackjack!");
+            Console.WriteLine();
+
+            GetPlayerInformation(p);
+
+            Console.Clear();
+            Console.WriteLine($"Hello {p.Name}!");
 
             DisplayRules();
 
