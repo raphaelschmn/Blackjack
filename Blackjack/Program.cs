@@ -13,7 +13,8 @@ namespace Blackjack
             Console.OutputEncoding = System.Text.Encoding.UTF8; //Output Encoding für Unicode Symbol
 
             GUI gui = new GUI();
-            gui.DisplayStartingScreen();
+            Player player = new Player();
+            gui.DisplayStartingScreen(player);
 
             Card[] cards = generateDeck();
             Shuffle(cards);

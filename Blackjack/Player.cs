@@ -8,16 +8,16 @@ namespace Blackjack
 {
     internal class Player
     {
-        public Card[] hand;
-        public int cardsInHand;
-        public int points;
-        public string name;
+        public Card[] Hand;
+        public int CardsInHand;
+        public int Points;
+        public string Name;
 
         public Player()
         {
-            hand = new Card[5];
-            points = 0;
-            cardsInHand = 0;
+            Hand = new Card[5];
+            Points = 0;
+            CardsInHand = 0;
         }
 
     }
