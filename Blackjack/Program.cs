@@ -10,8 +10,7 @@ namespace Blackjack
     {
         static void Main(string[] args)
         {
-            //Output Encoding für Unicode Symbole
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.OutputEncoding = System.Text.Encoding.UTF8; //Output Encoding für Unicode Symbol
 
             GUI gui = new GUI();
             gui.DisplayStartingScreen();
@@ -29,11 +28,6 @@ namespace Blackjack
             } while (true);
             */
         }
-
-
-
-
-
 
         static Card[] generateDeck()
         {
