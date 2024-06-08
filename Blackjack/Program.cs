@@ -18,8 +18,6 @@ namespace Blackjack
             Card[] cards = generateDeck();
             Shuffle(cards);
 
-            gui.DisplayCards(cards);
-
             Console.ReadKey();
             /*
             do //Gameloop
@@ -31,10 +29,10 @@ namespace Blackjack
 
         static Card[] generateDeck()
         {
-            Card[] deck = new Card[13];
+            Card[] deck = new Card[52];
             int counter = 0;
 
-            for (int suit = 1; suit < 2; suit++)           //Loop trough all Suits
+            for (int suit = 1; suit < 5; suit++)           //Loop trough all Suits
             {
                 for (int value = 1; value < 14; value++)   //Loop trough all Values
                 {
