@@ -57,7 +57,7 @@ namespace Blackjack
         }
 
 
-        public static Card[] Shuffle(Card[] deck)      //In progress
+        public static Card[] Shuffle(Card[] deck)      //Shuffle Deck
         {
             Random rng = new Random();
             Card temp;
@@ -78,17 +78,13 @@ namespace Blackjack
             return deck;
         }
 
-        public static int CountPoints(Card[] cards)     //Counts Points in Hand
+        public static void CalculateWinner(Player player, Player dealer)
         {
 
-            int pointcounter = 0;
-            for (int i = 0; i < cards.Length; i++)
-            {
-                pointcounter += cards[i].Points;
-            }
 
-            return pointcounter;
         }
+
+
 
         
     }
