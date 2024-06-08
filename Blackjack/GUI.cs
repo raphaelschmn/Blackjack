@@ -39,7 +39,7 @@ namespace Blackjack
             Console.Clear();
         }
 
-                public void DisplayCards(Card[] cards)
+            public void DisplayCards(Card[] cards)
         {
             string[] rows = { "", "", "", "", "" };
 

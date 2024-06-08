@@ -16,12 +16,16 @@ namespace Blackjack
             GUI gui = new GUI();
             gui.DisplayStartingScreen();
 
-            Card[] cards = generateDeck();
-            Shuffle(cards);
+            Card[] deck = generateDeck();
+            Shuffle(deck);
 
-            gui.DisplayCards(cards);
+            // gui.DisplayCards(deck);
+
+            // Console.WriteLine(CountPoints(deck));
 
             Console.ReadKey();
+
+          
             /*
             do //Gameloop
             {
@@ -37,10 +41,10 @@ namespace Blackjack
 
         static Card[] generateDeck()
         {
-            Card[] deck = new Card[13];
+            Card[] deck = new Card[52];
             int counter = 0;
 
-            for (int suit = 1; suit < 2; suit++)           //Loop trough all Suits
+            for (int suit = 1; suit < 5; suit++)           //Loop trough all Suits
             {
                 for (int value = 1; value < 14; value++)   //Loop trough all Values
                 {
@@ -58,18 +62,34 @@ namespace Blackjack
             Random rng = new Random();
             Card temp;
             int num = 0; 
-            for (int i = 0; i < deck.Length ; i ++) 
+            for (int i = 0; i < 10 ; i ++) 
             {
-                num = rng.Next(0, deck.Length);  
-                temp = deck[i];
-                deck[i] = deck[num];
-                deck[num] = temp;
+                for (int j = 0; j < deck.Length; j++)
+                {
+                    num = rng.Next(0, deck.Length);
+                    temp = deck[j];
+                    deck[j] = deck[num];
+                    deck[num] = temp;
+                }
 
                 
             }
 
             return deck;
         }
+
+        public static int CountPoints(Card[] cards)     //Counts Points in Hand
+        {
+
+            int pointcounter = 0;
+            for (int i = 0; i < cards.Length; i++)
+            {
+                pointcounter += cards[i].Points;
+            }
+
+            return pointcounter;
+        }
+
         
     }
 }
