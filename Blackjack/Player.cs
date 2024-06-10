@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Blackjack
 {
@@ -32,10 +33,18 @@ namespace Blackjack
             }
 
             this.Points = pointcounter;
-            
 
-            CardsInHand = 0;
+        }
 
+        public void CountCards(Card[] cards)
+        {
+            this.CardsInHand = cards.Count();
+        }
+
+        public void UpdateValues ()
+        {
+            CountCards(this.Hand);
+            CountPoints(this.Hand);
         }
 
         
