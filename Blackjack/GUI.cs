@@ -53,8 +53,11 @@ namespace Blackjack
         public void GameScreen(Player player, Player dealer)
         {
             Console.Clear();
-            Console.WriteLine($"Dealer's cards ({dealer.Points}):");
+            Console.WriteLine($"Dealer's cards ({dealer.Points}):" + "{0, 30}", "Your current bet: " + player.Bet + "$");
             DisplayCards(dealer);
+
+            Console.WriteLine($"\nYour card's ({player.Points}):");
+            DisplayCards(player);
         }
 
             public void DisplayCards(Player player)

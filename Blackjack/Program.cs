@@ -36,22 +36,26 @@ namespace Blackjack
                     Card[] deck = generateDeck();
                     Shuffle(deck);
 
+                    Console.Clear();
                     TakeBet(ref player);
 
-                    DrawCard(deck,ref player,player.CardsInHand);
-                    DrawCard(deck, ref player, player.CardsInHand);
-                    DrawCard(deck, ref dealer, dealer.CardsInHand);
-                    DrawCard(deck, ref dealer, dealer.CardsInHand);
+                    DrawCard(deck,ref player,ref tick);
+                    DrawCard(deck, ref player, ref tick);
+                    DrawCard(deck, ref dealer, ref tick);
+                    DrawCard(deck, ref dealer, ref tick);
                     player.UpdateValues();
                     dealer.UpdateValues();
 
                     gui.GameScreen(player, dealer);
+                    
                     Console.ReadKey();
 
-                    Console.Write("\n\nDo you want to play again? (Y)es, (N)o?");
+                    Console.Clear();
+
+                    Console.WriteLine("\n\nDo you want to play again? (Y)es, (N)o? {0, 25}", $"Current money: {player.Money}");
                     continuePlaying = Console.ReadLine();
                 } while (continuePlaying == "Y" || continuePlaying == "y") ;
-
+                Console.Clear();
                 Console.WriteLine($"You have {player.Money}$, so you earned {player.Money-5000}$!");
                 Console.ReadKey();
             }
@@ -83,9 +87,9 @@ namespace Blackjack
             return deck;
         }
 
-        public static void DrawCard(Card[] deck, ref Player p, int tick)
+        public static void DrawCard(Card[] deck, ref Player p, ref int tick)
         {
-            p.Hand[tick] = deck[tick];
+            p.Hand[p.CardsInHand] = deck[tick];
             p.CardsInHand++;
             tick++;
         }
@@ -171,11 +175,15 @@ namespace Blackjack
 
         }
 
-
         public static void TakeBet(ref Player player)
         {
-            Console.WriteLine("How much do you want to bet?");
-            double bet = int.Parse(Console.ReadLine());
+            double bet = 0;
+            bool error = false;
+            Console.Write("Your bet please: ");
+            do
+            {
+                try { bet = int.Parse(Console.ReadLine()); error = false; } catch { Console.WriteLine("Please enter a valid bet!"); error = true; }
+            } while (error);
             bool betfalse = false;
             do
             {
