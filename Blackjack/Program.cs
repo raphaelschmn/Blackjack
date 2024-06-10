@@ -35,11 +35,6 @@ namespace Blackjack
             */
         }
 
-
-
-
-
-
         static Card[] generateDeck()
         {
             Card[] deck = new Card[52];
