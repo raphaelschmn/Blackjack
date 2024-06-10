@@ -49,7 +49,7 @@ namespace Blackjack
                     CheckAce(ref player);
                     gui.GameScreen(player, dealer);
 
-                    if (!DealerBlackjack(dealer) && !DealerBlackjack(player))
+                    if (!DealerBlackjack(dealer) && !((player.Points == 21) && (player.CardsInHand == 2)))
                     {
                         bool alive = true;
 
@@ -74,7 +74,7 @@ namespace Blackjack
 
                             Console.WriteLine("***Dealer's turn***");
 
-                            while (dealerAlive == true && dealer.Points <= 17)
+                            while (dealerAlive == true && dealer.Points < 17)
                             {
                                 Console.WriteLine("Press Enter to continue!");
                                 Console.ReadLine();
@@ -90,6 +90,9 @@ namespace Blackjack
                     {
                         player.Money -= player.Bet;
                     }
+
+                    CalculateWinner(player, dealer);
+
                     Console.WriteLine("\n\nDo you want to play again? (Y)es, (N)o? {0, 25}", $"Current money: {player.Money}");
                     continuePlaying = Console.ReadLine();
                     Console.Clear();
@@ -156,8 +159,6 @@ namespace Blackjack
         {
             if (player.Points > 21)
             {
-                Console.WriteLine("Bust!");
-                player.Money -= player.Bet;
                 return false;
             }
             else return true;
@@ -182,7 +183,15 @@ namespace Blackjack
 
         public static void CalculateWinner(Player player, Player dealer)
         {
-            if (player.Points == dealer.Points)
+            if (!CheckBust(player))
+            {
+                Console.WriteLine("You loose, keep searching for your luck!");
+                player.Money -= player.Bet;
+            }else if (!CheckBust(dealer))
+            {
+                Console.WriteLine("You win! Continue your winning!");
+                player.Money += player.Bet;
+            }else if (player.Points == dealer.Points)
             {
                 Console.WriteLine("It's a Draw!");
             }else if ((player.Points) == 21 && (player.CardsInHand == 2))
@@ -194,7 +203,7 @@ namespace Blackjack
             {
                 Console.WriteLine($"You win {player.Name}!");
                 player.Money += player.Bet;
-            }else if (dealer.Points > player.Points)
+            }else if ((dealer.Points > player.Points) && (dealer.Points <= 21))
             {
                 Console.WriteLine("The dealer wins! Maybe next time you'll be luckier, keep gambling!");
                 player.Money -= player.Bet;
