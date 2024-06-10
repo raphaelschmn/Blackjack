@@ -31,7 +31,7 @@ namespace Blackjack
                 do
                 {
                     Card c = new Card(4, 4);
-                    Reset(player, dealer);
+                    Reset(player, dealer, ref tick);
 
                     Card[] deck = generateDeck();
                     Shuffle(deck);
@@ -45,14 +45,54 @@ namespace Blackjack
                     player.UpdateValues();
                     dealer.UpdateValues();
 
+                    CheckAce(ref dealer);
+                    CheckAce(ref player);
                     gui.GameScreen(player, dealer);
-                    
-                    Console.ReadKey();
 
-                    Console.Clear();
+                    if (!DealerBlackjack(dealer) && !DealerBlackjack(player))
+                    {
+                        bool alive = true;
 
+                        string choice = "";
+                        while (alive == true && choice != "S")
+                        {
+                            Console.WriteLine("\n(H)it or (S)tick?");
+                            Console.Write(">");
+                            choice = Console.ReadLine().ToUpper();
+                            if (choice == "H")
+                            {
+                                DrawCard(deck, ref player, ref tick);
+                                player.UpdateValues();
+                                gui.GameScreen(player, dealer);
+                                alive = CheckBust(player);
+                            }
+                        }
+
+                        if (alive == true)
+                        {
+                            bool dealerAlive = true;
+
+                            Console.WriteLine("***Dealer's turn***");
+
+                            while (dealerAlive == true && dealer.Points <= 17)
+                            {
+                                Console.WriteLine("Press Enter to continue!");
+                                Console.ReadLine();
+                                DrawCard(deck, ref dealer, ref tick);
+                                dealer.UpdateValues();
+                                gui.GameScreen(player, dealer);
+                                CheckAce(ref dealer);
+                                dealerAlive = CheckBust(dealer);
+                            }
+
+                        }
+                    }else
+                    {
+                        player.Money -= player.Bet;
+                    }
                     Console.WriteLine("\n\nDo you want to play again? (Y)es, (N)o? {0, 25}", $"Current money: {player.Money}");
                     continuePlaying = Console.ReadLine();
+                    Console.Clear();
                 } while (continuePlaying == "Y" || continuePlaying == "y") ;
                 Console.Clear();
                 Console.WriteLine($"You have {player.Money}$, so you earned {player.Money-5000}$!");
@@ -60,13 +100,14 @@ namespace Blackjack
             }
         }
 
-        public static void Reset(Player p, Player d)
+        public static void Reset(Player p, Player d, ref int tick)
         {
             p.CardsInHand = 0;
             d.CardsInHand= 0;
             p.Bet = 0;
             p.Points = 0;
             d.Points = 0;
+            tick = 0;
                 Array.Clear(p.Hand, 0, 9);
                 Array.Clear(d.Hand, 0, 9);
         }
@@ -115,10 +156,11 @@ namespace Blackjack
         {
             if (player.Points > 21)
             {
-                Console.WriteLine("Bust! Keep gambling, next time you'll be luckier!");
-                return true;
+                Console.WriteLine("Bust!");
+                player.Money -= player.Bet;
+                return false;
             }
-            else return false;
+            else return true;
         }
 
         public static void CheckAce(ref Player player)
@@ -126,7 +168,7 @@ namespace Blackjack
             bool alreadyChanged = false;
             if(player.Points > 21)
             {
-                for (int i = 0; i < player.Hand.Length; i++)
+                for (int i = 0; i < player.CardsInHand; i++)
                 {
                     if ((player.Hand[i].Points == 1) && (alreadyChanged != true))
                     {
@@ -159,16 +201,16 @@ namespace Blackjack
             }
             
         }
-
         public static bool DealerBlackjack(Player dealer)
         {
             if ((dealer.Points) == 21 && (dealer.CardsInHand == 2))
             {
                 Console.WriteLine("The house always wins!");    //Fallout New Vegas Easter Egg
+                Console.WriteLine("The dealer has a blackjack. Continue gambling for the big win!");
                 return true;
             }
             else
-            { 
+            {
                 return false; 
             }
 
@@ -180,32 +222,51 @@ namespace Blackjack
             bool error = false;
             Console.Write("Your bet please: {0, 20}$", "Current money: " + player.Money);
             Console.WriteLine("");
+            
             do
             {
                 try { bet = int.Parse(Console.ReadLine()); error = false; } catch { Console.WriteLine("Please enter a valid bet!"); error = true; }
             } while (error);
-            bool betfalse = false;
-            do
+
+            if (bet > player.Money)
             {
-
-                if (bet > player.Money)
+                int random;
+            Random rnd = new Random();
+            random = rnd.Next(0, 8);
+                if (random == 0)
                 {
-                    Console.WriteLine("You dont have enough money!");
-                    betfalse = true;
-                }
-                else if (bet < player.Money)
+                    Console.WriteLine("You sold your house, because you failed at gambling but you want to continue.");
+                }else if (random == 1)
                 {
-                    Console.WriteLine($"You bet {bet}$");
-                    betfalse = false;
-                }
-                else if (bet == player.Money)
+                    Console.WriteLine("You stole from the church, because you hadn't had enough money to keep gambling.");
+                }else if(random == 2)
                 {
-                    Console.WriteLine("All in!");
-                    betfalse = false;
+                    Console.WriteLine("Your bank is furious because you took another loan to keep on gambling.");
+                }else if(random == 3)
+                {
+                    Console.WriteLine("You went to another casino to get more money to continue gambling.");
+                }else if(random == 4)
+                {
+                    Console.WriteLine("You sold your boss' pc to continue gambling.");
+                }else if (random == 5)
+                {
+                    Console.WriteLine("You sold your soul to the devil in order to continue gambling.");
+                }else if (random == 6)
+                {
+                    Console.WriteLine("You borrow Monopoly-money to keep on gambling.");
+                }else if(random == 7)
+                {
+                    Console.WriteLine("You sold your next meal at grandma's to continue gambling.");
                 }
-
-            } while (betfalse);
-
+            }
+            else if (bet < player.Money)
+            {
+                Console.WriteLine($"You bet {bet}$");
+            }
+            else if (bet == player.Money)
+            {
+                Console.WriteLine("All in!");
+            }
             player.Bet = bet;
             Console.ReadKey();
         }
