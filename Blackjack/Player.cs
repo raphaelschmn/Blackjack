@@ -13,12 +13,14 @@ namespace Blackjack
         public int CardsInHand;
         public int Points;
         public string Name;
+        public double Money;
+        public double Bet;
 
         public Player()
         {
             Hand = new Card[9];
             Points = 0;
-
+            Money = 5000;
         }
 
         public void CountPoints(Card[] cards)     //Counts Points in Hand
@@ -35,6 +37,8 @@ namespace Blackjack
             CardsInHand = 0;
 
         }
+
+        
 
     }
 }

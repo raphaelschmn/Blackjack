@@ -102,15 +102,70 @@ namespace Blackjack
             if (player.Points == dealer.Points)
             {
                 Console.WriteLine("It's a Draw!");
+            }else if ((player.Points) == 21 && (player.CardsInHand == 2))
+            {
+                Console.WriteLine("Winner Winner Chicken Dinner! Keep going for another one!");
+                player.Money += (1.5 * player.Bet);
+
             }else if (player.Points > dealer.Points)
             {
                 Console.WriteLine($"You win {player.Name}!");
+                player.Money += player.Bet;
             }else if (dealer.Points > player.Points)
             {
                 Console.WriteLine("The dealer wins! Maybe next time you'll be luckier, keep gambling!");
+                player.Money -= player.Bet;
+            }
+            
+        }
+
+        public static bool DealerBlackjack(Player dealer)
+        {
+            if ((dealer.Points) == 21 && (dealer.CardsInHand == 2))
+            {
+                Console.WriteLine("The house always wins!");    //Fallout New Vegas Easter Egg
+                return true;
+            }
+            else
+            { 
+                return false; 
             }
 
         }
+
+        public static void TakeBet(ref Player player)
+        {
+            Console.WriteLine("How much do you want to bet?");
+            double bet = int.Parse(Console.ReadLine());
+            bool betfalse = false;
+            do
+            {
+                bet = int.Parse(Console.ReadLine());
+
+                if (bet > player.Money)
+                {
+                    Console.WriteLine("You dont have enough money!");
+                    betfalse = true;
+                }
+                else if (bet < player.Money)
+                {
+                    Console.WriteLine($"You bet {bet}$");
+                    betfalse = false;
+                }
+                else if (bet == player.Money)
+                {
+                    Console.WriteLine("All in!");
+                    betfalse = false;
+                }
+
+            } while (betfalse);
+
+            player.Bet = bet;
+        }
+
+                
+
+       
 
 
 
