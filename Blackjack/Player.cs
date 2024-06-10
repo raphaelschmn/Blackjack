@@ -10,6 +10,7 @@ namespace Blackjack
     internal class Player
     {
         public Card[] Hand;
+        public int CardsInHand;
         public int Points;
         public string Name;
 
@@ -17,6 +18,7 @@ namespace Blackjack
         {
             Hand = new Card[5];
             Points = 0;
+
         }
 
         public void CountPoints(Card[] cards)     //Counts Points in Hand
@@ -29,6 +31,9 @@ namespace Blackjack
 
             this.Points = pointcounter;
             
+
+            CardsInHand = 0;
+
         }
 
     }
