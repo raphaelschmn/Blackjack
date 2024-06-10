@@ -25,24 +25,31 @@ namespace Blackjack
             Money = 5000;
         }
 
-        public void CountPoints(Card[] cards)     //Counts Points in Hand
+        public void CountPoints()     //Counts Points in Hand
         {
             int pointcounter = 0;
-            for (int i = 0; i < cards.Length; i++)
+            for (int i = 0; i < CardsInHand; i++)
             {
-                pointcounter += cards[i].Points;
+                pointcounter += this.Hand[i].Points;
             }
             this.Points = pointcounter;
         }
-        public void CountCards(Card[] cards)
+        public void CountCards()
         {
-            this.CardsInHand = cards.Count();
+            this.CardsInHand = 0;
+            for (int i = 0; i < this.Hand.Length; i++)
+            {
+                if (this.Hand[i] != null)
+                {
+                    this.CardsInHand++;
+                }
+            }
         }
 
         public void UpdateValues ()
         {
-            CountCards(this.Hand);
-            CountPoints(this.Hand);
+            CountCards();
+            CountPoints();
         }
 
         

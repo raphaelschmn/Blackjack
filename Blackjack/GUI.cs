@@ -50,12 +50,18 @@ namespace Blackjack
             Console.ReadKey();
             Console.Clear();
         }
+        public void GameScreen(Player player, Player dealer)
+        {
+            Console.Clear();
+            Console.WriteLine($"Dealer's cards ({dealer.Points}):");
+            DisplayCards(dealer);
+        }
 
-            public void DisplayCards(Card[] cards)
+            public void DisplayCards(Player player)
         {
             string[] rows = { "", "", "", "", "" };
 
-            for(int i = 0; i < cards.Length; i++)
+            for(int i = 0; i < player.CardsInHand; i++)
             {
                 //if (cards[i].Side == "backside")
                 //{
@@ -66,9 +72,9 @@ namespace Blackjack
                 //} else
                 //{
                     rows[0] += " ___  ";
-                    rows[1] += string.Format("|{0, -2} | ", cards[i].ValueShown);
-                    rows[2] += string.Format("| {0, -1} | ", cards[i].Suit);
-                    rows[3] += string.Format("|_{0, 2}| ", cards[i].ValueShown);
+                    rows[1] += string.Format("|{0, -2} | ", player.Hand[i].ValueShown);
+                    rows[2] += string.Format("| {0, -1} | ", player.Hand[i].Suit);
+                    rows[3] += string.Format("|_{0, 2}| ", player.Hand[i].ValueShown);
                 //}
             }
 

@@ -26,16 +26,34 @@ namespace Blackjack
                 Player player = new Player();
                 //player.Money = 1000;
                 Player dealer = new Player();
+                int tick = 0;
+                gui.DisplayStartingScreen(player);
                 do
                 {
                     Card c = new Card(4, 4);
-
                     Reset(player, dealer);
 
-                    gui.DisplayStartingScreen(player);
+                    Card[] deck = generateDeck();
+                    Shuffle(deck);
+
+                    TakeBet(ref player);
+
+                    DrawCard(deck,ref player,player.CardsInHand);
+                    DrawCard(deck, ref player, player.CardsInHand);
+                    DrawCard(deck, ref dealer, dealer.CardsInHand);
+                    DrawCard(deck, ref dealer, dealer.CardsInHand);
+                    player.UpdateValues();
+                    dealer.UpdateValues();
+
+                    gui.GameScreen(player, dealer);
+                    Console.ReadKey();
 
                     Console.Write("\n\nDo you want to play again? (Y)es, (N)o?");
+                    continuePlaying = Console.ReadLine();
                 } while (continuePlaying == "Y" || continuePlaying == "y") ;
+
+                Console.WriteLine($"You have {player.Money}$, so you earned {player.Money-5000}$!");
+                Console.ReadKey();
             }
         }
 
@@ -43,6 +61,7 @@ namespace Blackjack
         {
             p.CardsInHand = 0;
             d.CardsInHand= 0;
+            p.Bet = 0;
             p.Points = 0;
             d.Points = 0;
                 Array.Clear(p.Hand, 0, 9);
@@ -64,6 +83,12 @@ namespace Blackjack
             return deck;
         }
 
+        public static void DrawCard(Card[] deck, ref Player p, int tick)
+        {
+            p.Hand[tick] = deck[tick];
+            p.CardsInHand++;
+            tick++;
+        }
 
         public static Card[] Shuffle(Card[] deck)      //Shuffle Deck
         {
@@ -154,7 +179,6 @@ namespace Blackjack
             bool betfalse = false;
             do
             {
-                bet = int.Parse(Console.ReadLine());
 
                 if (bet > player.Money)
                 {
