@@ -36,7 +36,6 @@ namespace Blackjack
                     Card[] deck = generateDeck();
                     Shuffle(deck);
 
-                    Console.Clear();
                     TakeBet(ref player);
 
                     DrawCard(deck,ref player,ref tick);
@@ -179,7 +178,8 @@ namespace Blackjack
         {
             double bet = 0;
             bool error = false;
-            Console.Write("Your bet please: ");
+            Console.Write("Your bet please: {0, 20}$", "Current money: " + player.Money);
+            Console.WriteLine("");
             do
             {
                 try { bet = int.Parse(Console.ReadLine()); error = false; } catch { Console.WriteLine("Please enter a valid bet!"); error = true; }
@@ -207,6 +207,7 @@ namespace Blackjack
             } while (betfalse);
 
             player.Bet = bet;
+            Console.ReadKey();
         }
     }
 }
