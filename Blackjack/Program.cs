@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,10 +17,12 @@ namespace Blackjack
             Player player = new Player();
             gui.DisplayStartingScreen(player);
 
-            Card[] cards = generateDeck();
-            Shuffle(cards);
+            Card[] deck = generateDeck();
+            Shuffle(deck);
 
             Console.ReadKey();
+
+          
             /*
             do //Gameloop
             {
@@ -46,23 +49,71 @@ namespace Blackjack
         }
 
 
-        public static Card[] Shuffle(Card[] deck)      //In progress
+        public static Card[] Shuffle(Card[] deck)      //Shuffle Deck
         {
             Random rng = new Random();
             Card temp;
             int num = 0; 
-            for (int i = 0; i < deck.Length ; i ++) 
+            for (int i = 0; i < 10 ; i ++) 
             {
-                num = rng.Next(0, deck.Length);  
-                temp = deck[i];
-                deck[i] = deck[num];
-                deck[num] = temp;
+                for (int j = 0; j < deck.Length; j++)
+                {
+                    num = rng.Next(0, deck.Length);
+                    temp = deck[j];
+                    deck[j] = deck[num];
+                    deck[num] = temp;
+                }
 
                 
             }
 
             return deck;
         }
+
+        public static bool CheckBust(Player player)
+        {
+            if (player.Points > 21)
+            {
+                Console.WriteLine("Bust! Keep gambling, next time you'll be luckier!");
+                return true;
+            }
+            else return false;
+        }
+
+        public static void CheckAce(ref Player player)
+        {
+            bool alreadyChanged = false;
+            if(player.Points > 21)
+            {
+                for (int i = 0; i < player.Hand.Length; i++)
+                {
+                    if ((player.Hand[i].Points == 1) && (alreadyChanged != true))
+                    {
+                        player.Hand[i].Points = 1;
+                        player.Points--;
+                        alreadyChanged = true;
+                    }
+                }
+            }
+        }
+
+        public static void CalculateWinner(Player player, Player dealer)
+        {
+            if (player.Points == dealer.Points)
+            {
+                Console.WriteLine("It's a Draw!");
+            }else if (player.Points > dealer.Points)
+            {
+                Console.WriteLine($"You win {player.Name}!");
+            }else if (dealer.Points > player.Points)
+            {
+                Console.WriteLine("The dealer wins! Maybe next time you'll be luckier, keep gambling!");
+            }
+
+        }
+
+
+
         
     }
 }
