@@ -29,12 +29,7 @@ namespace Blackjack
                 do
                 {
                     Card c = new Card(4, 4);
-                    
-                    for (int i = 0; i < player.Hand.Length; i++)
-                    {
-                        player.Hand[i] = new Card(4, 4);
-                        dealer.Hand[i] = new Card(4, 4);
-                    }
+
                     Reset(player, dealer);
 
                     gui.DisplayStartingScreen(player);
