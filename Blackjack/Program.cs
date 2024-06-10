@@ -13,24 +13,46 @@ namespace Blackjack
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8; //Output Encoding für Unicode Symbol
 
-            GUI gui = new GUI();
-            Player player = new Player();
-            gui.DisplayStartingScreen(player);
-
-            Card[] deck = generateDeck();
-            Shuffle(deck);
-
-            Console.ReadKey();
-
-          
-            /*
-            do //Gameloop
-            {
-
-            } while (true);
-            */
+            GameHandler gameHandler = new GameHandler();
+            gameHandler.StartGame();
         }
 
+        internal class GameHandler
+        {
+            public void StartGame() 
+            {
+                string continuePlaying = "";
+                GUI gui = new GUI();
+                Player player = new Player();
+                //player.Money = 1000;
+                Player dealer = new Player();
+                do
+                {
+                    Card c = new Card(4, 4);
+                    
+                    for (int i = 0; i < player.Hand.Length; i++)
+                    {
+                        player.Hand[i] = new Card(4, 4);
+                        dealer.Hand[i] = new Card(4, 4);
+                    }
+                    Reset(player, dealer);
+
+                    gui.DisplayStartingScreen(player);
+
+                    Console.Write("\n\nDo you want to play again? (Y)es, (N)o?");
+                } while (continuePlaying == "Y" || continuePlaying == "y") ;
+            }
+        }
+
+        public static void Reset(Player p, Player d)
+        {
+            p.CardsInHand = 0;
+            d.CardsInHand= 0;
+            p.Points = 0;
+            d.Points = 0;
+                Array.Clear(p.Hand, 0, 9);
+                Array.Clear(d.Hand, 0, 9);
+        }
         static Card[] generateDeck()
         {
             Card[] deck = new Card[52];
@@ -44,7 +66,6 @@ namespace Blackjack
                     counter++;
                 }
             }
-
             return deck;
         }
 
@@ -63,10 +84,7 @@ namespace Blackjack
                     deck[j] = deck[num];
                     deck[num] = temp;
                 }
-
-                
             }
-
             return deck;
         }
 
@@ -133,6 +151,7 @@ namespace Blackjack
 
         }
 
+
         public static void TakeBet(ref Player player)
         {
             Console.WriteLine("How much do you want to bet?");
@@ -162,13 +181,5 @@ namespace Blackjack
 
             player.Bet = bet;
         }
-
-                
-
-       
-
-
-
-        
     }
 }
