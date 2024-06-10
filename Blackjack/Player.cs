@@ -18,7 +18,6 @@ namespace Blackjack
         {
             Hand = new Card[9];
             Points = 0;
-
         }
 
         public void CountPoints(Card[] cards)     //Counts Points in Hand
@@ -28,12 +27,7 @@ namespace Blackjack
             {
                 pointcounter += cards[i].Points;
             }
-
             this.Points = pointcounter;
-            
-
-            CardsInHand = 0;
-
         }
 
     }
