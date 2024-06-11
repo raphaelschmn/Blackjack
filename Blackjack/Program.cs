@@ -62,6 +62,7 @@ namespace Blackjack
                             if (choice == "H")
                             {
                                 DrawCard(deck, ref player, ref tick);
+                                CheckAce(ref player);
                                 player.UpdateValues();
                                 gui.GameScreen(player, dealer);
                                 alive = CheckBust(player);
@@ -80,8 +81,8 @@ namespace Blackjack
                                 Console.ReadLine();
                                 DrawCard(deck, ref dealer, ref tick);
                                 dealer.UpdateValues();
-                                gui.GameScreen(player, dealer);
                                 CheckAce(ref dealer);
+                                gui.GameScreen(player, dealer);
                                 dealerAlive = CheckBust(dealer);
                             }
 
