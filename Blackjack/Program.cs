@@ -266,6 +266,10 @@ namespace Blackjack
             do
             {
                 try { bet = int.Parse(Console.ReadLine()); error = false; } catch { Console.WriteLine("Please enter a valid bet!"); error = true; }
+                if (bet <= 0)
+                {
+                    Console.WriteLine("Please enter a valid bet!"); error = true;
+                }
             } while (error);
 
             if (bet > player.Money)
