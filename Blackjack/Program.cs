@@ -47,7 +47,7 @@ namespace Blackjack
 
                     CheckAce(ref dealer);
                     CheckAce(ref player);
-                    gui.GameScreen(player, dealer, tick);
+                    gui.GameScreen(player, dealer, false);
 
                     if (!DealerBlackjack(dealer) && !((player.Points == 21) && (player.CardsInHand == 2)))
                     {
@@ -64,7 +64,7 @@ namespace Blackjack
                                 DrawCard(deck, ref player, ref tick);
                                 CheckAce(ref player);
                                 player.UpdateValues();
-                                gui.GameScreen(player, dealer, tick);
+                                gui.GameScreen(player, dealer, false);
                                 alive = CheckBust(player);
                             }
                         }
@@ -82,7 +82,7 @@ namespace Blackjack
                                 DrawCard(deck, ref dealer, ref tick);
                                 dealer.UpdateValues();
                                 CheckAce(ref dealer);
-                                gui.GameScreen(player, dealer, tick);
+                                gui.GameScreen(player, dealer, true);
                                 dealerAlive = CheckBust(dealer);
                             }
 
@@ -91,13 +91,13 @@ namespace Blackjack
                     {
                         player.Money -= player.Bet;
                     }
-
+                    gui.GameScreen(player, dealer, true);
                     CalculateWinner(player, dealer);
 
                     Console.WriteLine("\n\nDo you want to play again? (Y)es, (N)o? {0, 25}", $"Current money: {player.Money}");
-                    continuePlaying = Console.ReadLine();
+                    continuePlaying = Console.ReadLine().ToUpper();
                     Console.Clear();
-                } while (continuePlaying != "N" || continuePlaying != "n") ;
+                } while (continuePlaying != "N");
                 Console.Clear();
                 Console.WriteLine($"You have {player.Money}$, so you earned {player.Money-5000}$!");
                 Console.ReadKey();
@@ -188,22 +188,26 @@ namespace Blackjack
             {
                 Console.WriteLine("You loose, keep searching for your luck!");
                 player.Money -= player.Bet;
-            }else if (!CheckBust(dealer))
+            } else if (!CheckBust(dealer))
             {
                 Console.WriteLine("You win! Continue your winning!");
                 player.Money += player.Bet;
-            }else if (player.Points == dealer.Points)
+            } else if (player.Points == dealer.Points)
             {
                 Console.WriteLine("It's a Draw!");
-            }else if ((player.Points) == 21 && (player.CardsInHand == 2))
+            } else if ((player.Points) == 21 && (player.CardsInHand == 2))
             {
                 Console.WriteLine("Winner Winner Chicken Dinner! Keep going for another one!");
                 player.Money += (1.5 * player.Bet);
 
-            }else if (player.Points > dealer.Points)
+            } else if (player.Points > dealer.Points)
             {
                 Console.WriteLine($"You win {player.Name}!");
                 player.Money += player.Bet;
+            } else if (dealer.Points == 21 && dealer.CardsInHand == 2)
+            {
+                Console.WriteLine("The house always wins!");    //Fallout New Vegas Easter Egg
+                Console.WriteLine("The dealer has a blackjack. Continue gambling for the big win!");                
             }else if ((dealer.Points > player.Points) && (dealer.Points <= 21))
             {
                 Console.WriteLine("The dealer wins! Maybe next time you'll be luckier, keep gambling!");

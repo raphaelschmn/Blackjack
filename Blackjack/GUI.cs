@@ -48,38 +48,38 @@ namespace Blackjack
             Console.ReadKey();
             Console.Clear();
         }
-        public void GameScreen(Player player, Player dealer, int tick)
+        public void GameScreen(Player player, Player dealer, bool dealerTurn)
         {
+            bool backside = false;
             Console.Clear();
-            if(tick == 4)
+            if(dealer.CardsInHand == 2 && dealer.Points != 21 && !dealerTurn)
             {
                 Console.WriteLine($"Dealer's cards (?):" + "{0, 30}", "Your current bet: " + player.Bet + "$");
+                backside = true;
             }else
             {
                 Console.WriteLine($"Dealer's cards ({dealer.Points}):" + "{0, 30}", "Your current bet: " + player.Bet + "$");
+                backside = false;
             }
-            DisplayCards(dealer, tick);
-            tick++;
+            DisplayCards(dealer, backside);
             Console.WriteLine($"\nYour card's ({player.Points}):");
-            DisplayCards(player, tick);
-            tick--;
+            backside = false;
+            DisplayCards(player, backside);
         }
 
-            public void DisplayCards(Player player, int tick)
+            public void DisplayCards(Player player, bool backsideCard)
         {
             string[] rows = { "", "", "", "", "" };
 
-            bool backsideCard = false;
-
             for(int i = 0; i < player.CardsInHand; i++)
             {
-                if (tick == 4 && backsideCard == false)
+                if (backsideCard)
                 {
                     rows[0] += " ___  ";
                     rows[1] += "|## | ";
                     rows[2] += "|###| ";
                     rows[3] += "|_##| ";
-                    backsideCard = true;
+                    backsideCard = false;
                 } else
                 {
                     rows[0] += " ___  ";
