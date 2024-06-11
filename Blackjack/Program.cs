@@ -242,7 +242,7 @@ namespace Blackjack
             {
                 int random;
             Random rnd = new Random();
-            random = rnd.Next(0, 8);
+            random = rnd.Next(0, 11);
                 if (random == 0)
                 {
                     Console.WriteLine("You sold your house, because you failed at gambling but you want to continue.");
@@ -267,7 +267,17 @@ namespace Blackjack
                 }else if(random == 7)
                 {
                     Console.WriteLine("You sold your next meal at grandma's to continue gambling.");
+                }else if (random == 8)
+                {
+                    Console.WriteLine("You sold your left kidney to continue gambling");
+                }else if (random == 9)
+                {
+                    Console.WriteLine("You sacrificed you firstborn to montanablack to keep gambling");
+                }else if (random == 10)
+                {
+                    Console.WriteLine("You pawned off your rare pokemon cards to keep gambling");
                 }
+
             }
             else if (bet < player.Money)
             {
