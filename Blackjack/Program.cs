@@ -62,8 +62,8 @@ namespace Blackjack
                             if (choice == "H")
                             {
                                 DrawCard(deck, ref player, ref tick);
-                                CheckAce(ref player);
                                 player.UpdateValues();
+                                CheckAce(ref player);
                                 gui.GameScreen(player, dealer, false);
                                 alive = CheckBust(player);
                             }
@@ -172,10 +172,10 @@ namespace Blackjack
             {
                 for (int i = 0; i < player.CardsInHand; i++)
                 {
-                    if ((player.Hand[i].Points == 1) && (alreadyChanged != true))
+                    if ((player.Hand[i].Points == 11) && (!alreadyChanged))
                     {
                         player.Hand[i].Points = 1;
-                        player.Points--;
+                        player.Points -=10;
                         alreadyChanged = true;
                     }
                 }
