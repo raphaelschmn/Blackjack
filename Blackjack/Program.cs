@@ -24,7 +24,6 @@ namespace Blackjack
                 string continuePlaying = "";
                 GUI gui = new GUI();
                 Player player = new Player();
-                //player.Money = 1000;
                 Player dealer = new Player();
                 int tick = 0;
                 gui.DisplayStartingScreen(player);
@@ -49,7 +48,7 @@ namespace Blackjack
                     CheckAce(ref player);
                     gui.GameScreen(player, dealer, false);
 
-                    if (!DealerBlackjack(dealer) && !((player.Points == 21) && (player.CardsInHand == 2)))
+                    if (!CheckBlackjack(dealer) && !((player.Points == 21) && (player.CardsInHand == 2)))
                     {
                         bool alive = true;
 
@@ -241,12 +240,10 @@ namespace Blackjack
             }
             
         }
-        public static bool DealerBlackjack(Player dealer)
+        public static bool CheckBlackjack(Player dealer)
         {
             if ((dealer.Points) == 21 && (dealer.CardsInHand == 2))
             {
-                Console.WriteLine("The house always wins!");    //Fallout New Vegas Easter Egg
-                Console.WriteLine("The dealer has a blackjack. Continue gambling for the big win!");
                 return true;
             }
             else
