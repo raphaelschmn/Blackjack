@@ -56,16 +56,42 @@ namespace Blackjack
                         string choice = "";
                         while (alive == true && choice != "S")
                         {
-                            Console.WriteLine("\n(H)it or (S)tick?");
-                            Console.Write(">");
-                            choice = Console.ReadLine().ToUpper();
-                            if (choice == "H")
+                            if (player.CardsInHand == 2)
                             {
-                                DrawCard(deck, ref player, ref tick);
-                                player.UpdateValues();
-                                CheckAce(ref player);
-                                gui.GameScreen(player, dealer, false);
-                                alive = CheckBust(player);
+                                Console.WriteLine("\n(H)it, (S)tick or (D)ouble?");
+                                Console.Write(">");
+                                choice = Console.ReadLine().ToUpper();
+                                if (choice == "D")
+                                {
+                                    player.Bet = player.Bet * 2;
+                                    DrawCard(deck, ref player, ref tick);
+                                    player.UpdateValues();
+                                    CheckAce(ref player);
+                                    gui.GameScreen(player, dealer, false);
+                                    alive = CheckBust(player);
+                                    choice = "S";
+                                }else if (choice == "H")
+                                {
+                                    DrawCard(deck, ref player, ref tick);
+                                    player.UpdateValues();
+                                    CheckAce(ref player);
+                                    gui.GameScreen(player, dealer, false);
+                                    alive = CheckBust(player);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("\n(H)it or (S)tick?");
+                                Console.Write(">");
+                                choice = Console.ReadLine().ToUpper();
+                                if (choice == "H")
+                                {
+                                    DrawCard(deck, ref player, ref tick);
+                                    player.UpdateValues();
+                                    CheckAce(ref player);
+                                    gui.GameScreen(player, dealer, false);
+                                    alive = CheckBust(player);
+                                }
                             }
                         }
 
