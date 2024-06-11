@@ -11,7 +11,6 @@ namespace Blackjack
         public string Suit;
         public int Points;
         public int Value;
-        public string Side;
         public string ValueShown;
 
         public Card(int s, int v)

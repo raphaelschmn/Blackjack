@@ -47,7 +47,7 @@ namespace Blackjack
 
                     CheckAce(ref dealer);
                     CheckAce(ref player);
-                    gui.GameScreen(player, dealer);
+                    gui.GameScreen(player, dealer, tick);
 
                     if (!DealerBlackjack(dealer) && !((player.Points == 21) && (player.CardsInHand == 2)))
                     {
@@ -64,7 +64,7 @@ namespace Blackjack
                                 DrawCard(deck, ref player, ref tick);
                                 CheckAce(ref player);
                                 player.UpdateValues();
-                                gui.GameScreen(player, dealer);
+                                gui.GameScreen(player, dealer, tick);
                                 alive = CheckBust(player);
                             }
                         }
@@ -82,7 +82,7 @@ namespace Blackjack
                                 DrawCard(deck, ref dealer, ref tick);
                                 dealer.UpdateValues();
                                 CheckAce(ref dealer);
-                                gui.GameScreen(player, dealer);
+                                gui.GameScreen(player, dealer, tick);
                                 dealerAlive = CheckBust(dealer);
                             }
 
@@ -97,7 +97,7 @@ namespace Blackjack
                     Console.WriteLine("\n\nDo you want to play again? (Y)es, (N)o? {0, 25}", $"Current money: {player.Money}");
                     continuePlaying = Console.ReadLine();
                     Console.Clear();
-                } while (continuePlaying == "Y" || continuePlaying == "y") ;
+                } while (continuePlaying != "N" || continuePlaying != "n") ;
                 Console.Clear();
                 Console.WriteLine($"You have {player.Money}$, so you earned {player.Money-5000}$!");
                 Console.ReadKey();

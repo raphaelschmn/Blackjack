@@ -10,8 +10,6 @@ namespace Blackjack
 {
     internal class GUI
     {
-        public Card Card;
-
         public void GetPlayerInformation(Player p)
         {
             Console.Write("Please enter your name: ");
@@ -50,35 +48,45 @@ namespace Blackjack
             Console.ReadKey();
             Console.Clear();
         }
-        public void GameScreen(Player player, Player dealer)
+        public void GameScreen(Player player, Player dealer, int tick)
         {
             Console.Clear();
-            Console.WriteLine($"Dealer's cards ({dealer.Points}):" + "{0, 30}", "Your current bet: " + player.Bet + "$");
-            DisplayCards(dealer);
-
+            if(tick == 4)
+            {
+                Console.WriteLine($"Dealer's cards (?):" + "{0, 30}", "Your current bet: " + player.Bet + "$");
+            }else
+            {
+                Console.WriteLine($"Dealer's cards ({dealer.Points}):" + "{0, 30}", "Your current bet: " + player.Bet + "$");
+            }
+            DisplayCards(dealer, tick);
+            tick++;
             Console.WriteLine($"\nYour card's ({player.Points}):");
-            DisplayCards(player);
+            DisplayCards(player, tick);
+            tick--;
         }
 
-            public void DisplayCards(Player player)
+            public void DisplayCards(Player player, int tick)
         {
             string[] rows = { "", "", "", "", "" };
 
+            bool backsideCard = false;
+
             for(int i = 0; i < player.CardsInHand; i++)
             {
-                //if (cards[i].Side == "backside")
-                //{
-                //    rows[0] += " ___  ";
-                //    rows[1] += "|## | ";
-                //    rows[2] += "|###| ";
-                //    rows[3] += "|_##| ";
-                //} else
-                //{
+                if (tick == 4 && backsideCard == false)
+                {
+                    rows[0] += " ___  ";
+                    rows[1] += "|## | ";
+                    rows[2] += "|###| ";
+                    rows[3] += "|_##| ";
+                    backsideCard = true;
+                } else
+                {
                     rows[0] += " ___  ";
                     rows[1] += string.Format("|{0, -2} | ", player.Hand[i].ValueShown);
                     rows[2] += string.Format("| {0, -1} | ", player.Hand[i].Suit);
                     rows[3] += string.Format("|_{0, 2}| ", player.Hand[i].ValueShown);
-                //}
+                }
             }
 
             foreach (string row in rows)
