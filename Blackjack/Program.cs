@@ -267,6 +267,10 @@ namespace Blackjack
                 {
                     Console.WriteLine("Please enter a valid bet!"); error = true;
                 }
+                if(player.Money < 0 && bet > 50)
+                {
+                    Console.WriteLine("Your in minus, your max bet can only be 50$"); error = true;
+                }
             } while (error);
 
             if (bet > player.Money)
