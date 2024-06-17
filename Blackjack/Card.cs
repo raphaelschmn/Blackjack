@@ -15,23 +15,23 @@ namespace Blackjack
 
         public Card(int s, int v)
         {
-            Value = v; // Sets the Value of the card to the value of v (The second argument)
-            switch (s) // Case statement based on the value of s
+            Value = v;
+            switch (s)
             {
-                case 1: // If s == 1, then set the Suit to Clubs
+                case 1:
                     Suit = "♣";
                     break;
-                case 2: // If s == 2, then set the Suit to Diamonds
+                case 2:
                     Suit = "♦";
                     break;
-                case 3: // If s == 3, then set the Suit to Hearts
+                case 3:
                     Suit = "♥";
                     break;
-                case 4: // If s == 4, then set the Suit to Spades
+                case 4:
                     Suit = "♠";
                     break;
             }
-            if (Value > 10) //For Jack, Queen and King
+            if (Value > 10)
             {
                 Points = 10; 
                 switch (v)
@@ -47,12 +47,12 @@ namespace Blackjack
                         break;
                 }
             }
-            else if (Value == 1) //For Ace
+            else if (Value == 1)
             {
                 Points = 11;
                 this.ValueShown = "A";
             }
-            else //For Normal Cards
+            else
             {
                 Points = Value;
                 this.ValueShown = Value.ToString();

@@ -25,7 +25,7 @@ namespace Blackjack
             Money = 5000;
         }
 
-        public void CountPoints()     //Counts Points in Hand
+        public void CountPoints()
         {
             int pointcounter = 0;
             for (int i = 0; i < CardsInHand; i++)

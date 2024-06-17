@@ -141,11 +141,11 @@ namespace Blackjack
             Card[] deck = new Card[52];
             int counter = 0;
 
-            for (int suit = 1; suit < 5; suit++)           //Loop trough all Suits
+            for (int suit = 1; suit < 5; suit++)
             {
-                for (int value = 1; value < 14; value++)   //Loop trough all Values
+                for (int value = 1; value < 14; value++)
                 {
-                    deck[counter] = new Card(suit, value);  //Generate new Card 
+                    deck[counter] = new Card(suit, value); 
                     counter++;
                 }
             }
@@ -159,7 +159,7 @@ namespace Blackjack
             tick++;
         }
 
-        public static Card[] Shuffle(Card[] deck)      //Shuffle Deck
+        public static Card[] Shuffle(Card[] deck)
         {
             Random rng = new Random();
             Card temp;
