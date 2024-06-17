@@ -45,74 +45,72 @@ namespace Blackjack
                     CheckAce(ref player);
                     gui.GameScreen(player, dealer, false);
 
-                    if (!CheckBlackjack(dealer) && !((player.Points == 21) && (player.CardsInHand == 2)))
-                    {
-                        bool alive = true;
+                if (!CheckBlackjack(dealer) && !((player.Points == 21) && (player.CardsInHand == 2)))
+                {
+                    bool alive = true;
 
-                        string choice = "";
-                        while (alive == true && choice != "S")
+                    string choice = "";
+                    while (alive == true && choice != "S")
+                    {
+                        if (player.CardsInHand == 2)
                         {
-                            if (player.CardsInHand == 2)
+                            Console.WriteLine("\n(H)it, (S)tick or (D)ouble?");
+                            Console.Write(">");
+                            choice = Console.ReadLine().ToUpper();
+                            if (choice == "D")
                             {
-                                Console.WriteLine("\n(H)it, (S)tick or (D)ouble?");
-                                Console.Write(">");
-                                choice = Console.ReadLine().ToUpper();
-                                if (choice == "D")
-                                {
-                                    player.Bet = player.Bet * 2;
-                                    DrawCard(deck, ref player, ref tick);
-                                    player.UpdateValues();
-                                    CheckAce(ref player);
-                                    gui.GameScreen(player, dealer, false);
-                                    alive = CheckBust(player);
-                                    choice = "S";
-                                }else if (choice == "H")
-                                {
-                                    DrawCard(deck, ref player, ref tick);
-                                    player.UpdateValues();
-                                    CheckAce(ref player);
-                                    gui.GameScreen(player, dealer, false);
-                                    alive = CheckBust(player);
-                                }
+                                player.Bet = player.Bet * 2;
+                                DrawCard(deck, ref player, ref tick);
+                                player.UpdateValues();
+                                CheckAce(ref player);
+                                gui.GameScreen(player, dealer, false);
+                                alive = CheckBust(player);
+                                choice = "S";
                             }
-                            else
+                            else if (choice == "H")
                             {
-                                Console.WriteLine("\n(H)it or (S)tick?");
-                                Console.Write(">");
-                                choice = Console.ReadLine().ToUpper();
-                                if (choice == "H")
-                                {
-                                    DrawCard(deck, ref player, ref tick);
-                                    player.UpdateValues();
-                                    CheckAce(ref player);
-                                    gui.GameScreen(player, dealer, false);
-                                    alive = CheckBust(player);
-                                }
+                                DrawCard(deck, ref player, ref tick);
+                                player.UpdateValues();
+                                CheckAce(ref player);
+                                gui.GameScreen(player, dealer, false);
+                                alive = CheckBust(player);
                             }
                         }
-
-                        if (alive == true)
+                        else
                         {
-                            bool dealerAlive = true;
-
-                            Console.WriteLine("***Dealer's turn***");
-
-                            while (dealerAlive == true && dealer.Points < 17)
+                            Console.WriteLine("\n(H)it or (S)tick?");
+                            Console.Write(">");
+                            choice = Console.ReadLine().ToUpper();
+                            if (choice == "H")
                             {
-                                Console.WriteLine("Press Enter to continue!");
-                                Console.ReadLine();
-                                DrawCard(deck, ref dealer, ref tick);
-                                dealer.UpdateValues();
-                                CheckAce(ref dealer);
-                                gui.GameScreen(player, dealer, true);
-                                dealerAlive = CheckBust(dealer);
+                                DrawCard(deck, ref player, ref tick);
+                                player.UpdateValues();
+                                CheckAce(ref player);
+                                gui.GameScreen(player, dealer, false);
+                                alive = CheckBust(player);
                             }
-
                         }
-                    }else
-                    {
-                        player.Money -= player.Bet;
                     }
+
+                    if (alive == true)
+                    {
+                        bool dealerAlive = true;
+
+                        Console.WriteLine("***Dealer's turn***");
+
+                        while (dealerAlive == true && dealer.Points < 17)
+                        {
+                            Console.WriteLine("Press Enter to continue!");
+                            Console.ReadLine();
+                            DrawCard(deck, ref dealer, ref tick);
+                            dealer.UpdateValues();
+                            CheckAce(ref dealer);
+                            gui.GameScreen(player, dealer, true);
+                            dealerAlive = CheckBust(dealer);
+                        }
+
+                    }
+                }
                     gui.GameScreen(player, dealer, true);
                     CalculateWinner(player, dealer);
 
