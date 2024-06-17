@@ -13,13 +13,10 @@ namespace Blackjack
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8; //Output Encoding für Unicode Symbol
 
-            GameHandler gameHandler = new GameHandler();
-            gameHandler.StartGame();
+            StartGame();
         }
 
-        internal class GameHandler
-        {
-            public void StartGame() 
+            public static void StartGame() 
             {
                 string continuePlaying = "";
                 GUI gui = new GUI();
@@ -127,7 +124,6 @@ namespace Blackjack
                 Console.WriteLine($"You have {player.Money}$, so you earned {player.Money-5000}$!");
                 Console.ReadKey();
             }
-        }
 
         public static void Reset(Player p, Player d, ref int tick)
         {
